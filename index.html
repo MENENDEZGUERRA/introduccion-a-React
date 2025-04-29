@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sección de Comentarios</title>
+
+    <!-- React -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script> 
+
+    <!-- ReactDOM -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script> 
+
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> 
+  </head>
+  <body>
+    
+    <img src="https://web.archive.org/web/20090831132353im_/http://geocities.com/tonyying/ghost/if.gif" alt="Sangre">
+    <img src="https://web.archive.org/web/20090831132353im_/http://geocities.com/tonyying/ghost/if.gif" alt="Sangre">
+    <img src="https://web.archive.org/web/20091027062347/http://geocities.com/horrorhostunderground/agg/images/email041.gif" alt="Rana correo Rana correo">
+    <div id="root"></div>
+    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2tmYWUzZ3dsZm04cG9nd29tNzlkZjZmeXRvdnc4aDA5d2J3NWdqZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YEkdhK3KYafGE/giphy.gif" alt="Fantasmas">
+
+    <!-- React + JSX -->
+    <script type="text/babel">
+      // CommentForm (Hijo)
+      function CommentForm({ onAddComment }) {
+        const [text, setText] = React.useState('');
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          if (!text.trim()) return;
+          onAddComment(text);
+          setText('');
+        };
+
+        return (
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Escribe tu comentario..."
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+            <button type="submit">Enviar comentario</button>
+          </form>
+        );
+      }
+
+      // App padre
+      function App() {
+        const [comments, setComments] = React.useState([]);
+
+        const addComment = (newComment) => {
+          setComments((prev) => [...prev, newComment]);
+        };
+
+        return (
+          <div>
+            <h2>👻👻👻 Comentarios 👻👻👻</h2>
+            <CommentForm onAddComment={addComment} />
+            <ul>
+              {comments.map((c, i) => (
+                <li key={i}>{c}</li>
+              ))}
+            </ul>
+          </div>
+        );
+      }
+
+
+      const root = ReactDOM.createRoot(document.getElementById('root')); 
+      root.render(<App />);
+    </script>
+  </body>
+</html>
